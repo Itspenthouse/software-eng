@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PepeOnlineStore - Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    header {
+      background-color: #28a745;
+      color: white;
+      padding: 1em;
+      text-align: center;
+    }
+    
+    header nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      gap: 1em;
+    }
+    
+    header nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+    
+    header nav ul li a:hover {
+      text-decoration: underline;
+    }
+    
+    main {
+      padding: 2em;
+    }
+    
+    .cart-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 1em;
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    
+    .cart-item h3 {
+      margin: 0;
+    }
+    
+    .cart-item p {
+      margin: 0;
+    }
+    
+    .cart-item button {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 0.5em 1em;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    
+    .cart-item button:hover {
+      background-color: #c82333;
+    }
+    
+    .cart-summary {
+      background-color: #f8f9fa;
+      padding: 1em;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-top: 2em;
+    }
+    
+    .cart-summary p {
+      margin: 0;
+    }
+    
+    .cart-summary button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 0.75em 1.5em;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 100%;
+      font-size: 1.2em;
+    }
+    
+    .cart-summary button:hover {
+      background-color: #218838;
+    }
+    
+    footer {
+      background-color: #343a40;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cartButton = document.getElementById('cartButton');
+      const cartModal = document.getElementById('cartModal');
+      const closeModal = document.querySelector('.close');
+      const addToCartButtons = document.querySelectorAll('.add-to-cart');
+      const cartItemsList = document.getElementById('cartItems');
+      const totalPriceElement = document.getElementById('totalPrice');
+      const greeting = document.getElementById('greeting');
+    
+      let cart = [];
+      let totalPrice = 0;
+    
+      
+      const hours = new Date().getHours();
+      const greetMessage = hours < 12 ? 'Good Morning!' : hours < 18 ? 'Good Afternoon!' : 'Good Evening!';
+      greeting.textContent = ${greetMessage} Check out our trending products below.;
+    
+      
+      addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const itemName = button.getAttribute('data-item');
+          const itemPrice = parseInt(button.getAttribute('data-price'), 10);
+    
+          cart.push({ name: itemName, price: itemPrice });
+          totalPrice += itemPrice;
+    
+          updateCart();
+        });
+      });
+    
+     
+      cartButton.addEventListener('click', () => {
+        cartModal.style.display = 'block';
+      });
+    
+      
+      closeModal.addEventListener('click', () => {
+        cartModal.style.display = 'none';
+      });
+    
+      
+      function updateCart() {
+        cartItemsList.innerHTML = cart.length
+          ? cart.map(item => <li>${item.name} - $${item.price}</li>).join('')
+          : '<li>Your cart is empty.</li>';
+        totalPriceElement.textContent = Total: $${totalPrice};
+      }
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <h1>PepeOnlineStore</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="categories.html">Categories</a></li>
+        <li><button id="cartButton">Cart</button></li>
+        <li><a href="help.html">Help</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <h2>Your Cart</h2>
+      <ul id="cartItems">
+        <li>Your cart is empty.</li>
+      </ul>
+      <p id="totalPrice">Total: $0</p>
+    </article>
+  </main>
+  <footer>
+    <p>&copy; 2025 PepeOnlineStore. Built by <a href="https://yourwebsite.com" target="_blank">Michael Ngaban</a>.</p>
+  </footer>
+</body>
+</html>

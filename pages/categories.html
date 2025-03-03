@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PepeOnlineStore - Categories</title>
+  <style>
+   
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background-color: #28a745;
+    color: white;
+    padding: 1em;
+    text-align: center;
+  }
+  
+  header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    gap: 1em;
+  }
+  
+  header nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  
+  header nav ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  main {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+  }
+  
+  main h2 {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  
+  .category-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1em;
+  }
+  
+  .category-item {
+    padding: 1em;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  
+  .category-item:hover {
+    transform: translateY(-10px);
+  }
+  
+  .category-item a {
+    text-decoration: none;
+    color: #28a745;
+    font-weight: bold;
+  }
+  
+  .category-item a:hover {
+    text-decoration: underline;
+  }
+  
+  footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 1em;
+  }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cartButton = document.getElementById('cartButton');
+        const cartModal = document.getElementById('cartModal');
+        const closeModal = document.querySelector('.close');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const cartItemsList = document.getElementById('cartItems');
+        const totalPriceElement = document.getElementById('totalPrice');
+        const greeting = document.getElementById('greeting');
+      
+        let cart = [];
+        let totalPrice = 0;
+      
+        
+        const hours = new Date().getHours();
+        const greetMessage = hours < 12 ? 'Good Morning!' : hours < 18 ? 'Good Afternoon!' : 'Good Evening!';
+        greeting.textContent = ${greetMessage} Check out our trending products below.;
+      
+        
+        addToCartButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            const itemName = button.getAttribute('data-item');
+            const itemPrice = parseInt(button.getAttribute('data-price'), 10);
+      
+            cart.push({ name: itemName, price: itemPrice });
+            totalPrice += itemPrice;
+      
+            updateCart();
+          });
+        });
+      
+
+        cartButton.addEventListener('click', () => {
+          cartModal.style.display = 'block';
+        });
+      
+
+        closeModal.addEventListener('click', () => {
+          cartModal.style.display = 'none';
+        });
+      
+
+        function updateCart() {
+          cartItemsList.innerHTML = cart.length
+            ? cart.map(item => <li>${item.name} - $${item.price}</li>).join('')
+            : '<li>Your cart is empty.</li>';
+          totalPriceElement.textContent = Total: $${totalPrice};
+        }
+      });
+  </script>
+</head>
+<body>
+  <header>
+    <h1>PepeOnlineStore</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="categories.html">Categories</a></li>
+        <li><button id="cartButton">Cart</button></li>
+        <li><a href="help.html">Help</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <h2>Categories</h2>
+      <div class="category-list">
+        <div class="category">
+          <h3>Category 1</h3>
+          <p>Description of Category 1</p>
+        </div>
+        <div class="category">
+          <h3>Category 2</h3>
+          <p>Description of Category 2</p>
+        </div>
+        <div class="category">
+          <h3>Category 3</h3>
+          <p>Description of Category 3</p>
+        </div>
+      </div>
+    </article>
+    <aside>
+      <h3>Comments Section</h3>
+      <p>Placeholder for future comments or community feedback.</p>
+    </aside>
+  </main>
+  <footer>
+    <p>&copy; 2025 PepeOnlineStore. Built by <a href="https://yourwebsite.com" target="_blank">Michael Ngaban</a>.</p>
+  </footer>
+</body>
+</html>
